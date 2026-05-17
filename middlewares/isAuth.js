@@ -2,6 +2,8 @@ import "dotenv/config";
 import jwt from "jsonwebtoken";
 
 const isAuth = async (req, res, next) => {
+    console.log(req.cookies);
+    console.log(req.headers.cookie);
     try {
 
         const token = req.cookies?.token;
@@ -35,6 +37,5 @@ const isAuth = async (req, res, next) => {
         });
     }
 };
-console.log(req.cookies);
-console.log(req.headers.cookie);
+
 export default isAuth;
