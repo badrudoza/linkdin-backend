@@ -1,25 +1,39 @@
-import "dotenv/config"; 
-import jwt from "jsonwebtoken"
-// import dotenv from "dotenv"
-// dotenv.config() 
-const isAuth=async (req,res,next)=>{
+import "dotenv/config";
+import jwt from "jsonwebtoken";
+
+const isAuth = async (req, res, next) => {
     try {
-        let {token}=req.cookies
 
-        if(!token){
-            return res.status(400).json({message:"user doesn't have token"})
+        const token = req.cookies?.token;
+
+        if (!token) {
+            return res.status(401).json({
+                message: "No token found"
+            });
         }
-        let verifyToken= jwt.verify(token,process.env.JWT_SECRET)
-        if(!verifyToken){
-            return res.status(400).json({message:"user doesn't have valid token"})
+
+        const verifyToken = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+        if (!verifyToken) {
+            return res.status(401).json({
+                message: "Invalid token"
+            });
         }
-        
-        req.userId=verifyToken.userId
-        next()
+
+        req.userId = verifyToken.userId;
+
+        next();
+
     } catch (error) {
-        console.log(error)
-        return res.status(500).json({message:"is auth error"})
-    }
-}
+        console.log(error);
 
-export default isAuth
+        return res.status(500).json({
+            message: "Authentication error"
+        });
+    }
+};
+
+export default isAuth;
