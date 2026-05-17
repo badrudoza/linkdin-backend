@@ -16,7 +16,7 @@ let app=express()
 let server=http.createServer(app)
 export const io=new Server(server,{
     cors:({
-        origin:process.env.FRONTED_URL,
+        origin:process.env.FRONTEND_URL,
         credentials:true
     })
 })
@@ -25,7 +25,7 @@ export const io=new Server(server,{
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin:process.env.FRONTED_URL,
+    origin:process.env.FRONTEND_URL,
     credentials:true
 }))
 let port=process.env.PORT || 5000
