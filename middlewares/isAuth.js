@@ -35,5 +35,6 @@ const isAuth = async (req, res, next) => {
         });
     }
 };
-
+console.log(req.cookies);
+console.log(req.headers.cookie);
 export default isAuth;
